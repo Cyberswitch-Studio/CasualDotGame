@@ -964,6 +964,7 @@ MonoBehaviour:
   xradius: 1
   yradius: 1
   redLineGameObj: {fileID: 684096099}
+  startPos: {fileID: 0}
   inCollider: 0
   player: {fileID: 1022771621}
   orbitSpeed: 10

@@ -71,7 +71,6 @@ public class example : MonoBehaviour
     {
         if (inCollider == true/* && Input.GetMouseButtonDown(0)*/)
         {
-            Debug.Log("click!");
             player.transform.Rotate(Vector2.up * orbitSpeed * Time.deltaTime);
 
             List<Vector3> pos = new List<Vector3>();
@@ -87,5 +86,19 @@ public class example : MonoBehaviour
 
             redLine.SetPositions(pos.ToArray());
         }
+
+        Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
+        if (AngleBetweenVector2(player.transform.position, this.transform.position) >= 90)
+        {
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
+    private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
+    {
+        Vector2 difference = vec2 - vec1;
+        //float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
+        //return Vector2.Angle(Vector2.right, difference);
+        return Vector2.Angle(Vector2.up, difference);
     }
 }
