@@ -22,6 +22,11 @@ public class StartRotation : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0f, 0f, maxRotation * Mathf.Sin(Time.time * speed));
         }
+        else
+        {
+            //transform.Rotate(0, 0, 10 * speed * Time.deltaTime);
+            //rb.velocity = transform.up * speed;
+        }
 
 
         if (Input.GetMouseButtonDown(0))
