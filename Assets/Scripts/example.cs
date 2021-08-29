@@ -67,30 +67,32 @@ public class example : MonoBehaviour
         redLineGameObj.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (inCollider == true/* && Input.GetMouseButtonDown(0)*/)
         {
-            player.transform.Rotate(Vector2.up * orbitSpeed * Time.deltaTime);
+            //player.transform.Rotate(Vector2.up * orbitSpeed * Time.deltaTime);
 
-            List<Vector3> pos = new List<Vector3>();
-            pos.Add(this.transform.position);
-            pos.Add(player.transform.position);
-            redLine.startWidth = 0.02f;
-            redLine.endWidth = 0.02f;
+            //Debug.DrawLine(this.transform.position, player.transform.position, Color.red);
+            Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
 
+            //List<Vector3> pos = new List<Vector3>();
+            //pos.Add(this.transform.position);
+            //pos.Add(player.transform.position);
+            //redLine.startWidth = 0.02f;
+            //redLine.endWidth = 0.02f;
 
-            redLine.useWorldSpace = false;
-            redLine.startColor = Color.red;
-            redLine.endColor = Color.red;
+            //redLine.useWorldSpace = false;
+            //redLine.startColor = Color.red;
+            //redLine.endColor = Color.red;
 
-            redLine.SetPositions(pos.ToArray());
+            //redLine.SetPositions(pos.ToArray());
         }
 
         Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
         if (AngleBetweenVector2(player.transform.position, this.transform.position) >= 90)
         {
-            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
 
