@@ -620,7 +620,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.18
+  m_Radius: 0.0001
 --- !u!1 &1233787807
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +964,6 @@ MonoBehaviour:
   xradius: 1
   yradius: 1
   redLineGameObj: {fileID: 684096099}
-  startPos: {fileID: 0}
   inCollider: 0
   player: {fileID: 1022771621}
   orbitSpeed: 10

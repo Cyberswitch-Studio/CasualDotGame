@@ -15,6 +15,8 @@ public class example : MonoBehaviour
     LineRenderer redLine;
     public GameObject redLineGameObj;
 
+    Vector3 pointIn;
+
     public bool inCollider = false;
     public GameObject player;
     public float orbitSpeed = 10.0f;
@@ -60,6 +62,8 @@ public class example : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         inCollider = true;
+        Debug.DrawLine(transform.position, player.transform.position, Color.green, 100);
+        pointIn = player.transform.position;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -86,19 +90,24 @@ public class example : MonoBehaviour
             //redLine.endColor = Color.red;
 
             //redLine.SetPositions(pos.ToArray());
+
+            if (Vector2.Angle(player.transform.position - transform.position, pointIn - player.transform.position) >= 89)
+            {
+                player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+            }
         }
 
         Vector3 direction = player.transform.position - transform.position;
         Debug.DrawLine(transform.position, player.transform.position, Color.red);
+        Debug.DrawLine(pointIn, player.transform.position, Color.yellow);
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Debug.Log("Angle:" + angle);
+        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        //Debug.Log("Angle:" + angle);
+        //Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 50);
 
         //Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
-        if (AngleBetweenVector2(player.transform.position, this.transform.position) >= 90)
-        {
-            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
-        }
+        Debug.Log(Vector2.Angle(player.transform.position - transform.position, pointIn - player.transform.position));
     }
 
     private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
