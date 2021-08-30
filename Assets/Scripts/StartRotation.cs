@@ -33,7 +33,7 @@ public class StartRotation : MonoBehaviour
         {
             shoot = true;
             directionDots.SetActive(false);
-            rb.velocity = transform.up * speed;
+            rb.velocity = transform.up * shootSpeed;
         }
     }
 }

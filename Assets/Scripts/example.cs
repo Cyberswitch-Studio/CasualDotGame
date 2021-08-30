@@ -74,7 +74,6 @@ public class example : MonoBehaviour
             //player.transform.Rotate(Vector2.up * orbitSpeed * Time.deltaTime);
 
             //Debug.DrawLine(this.transform.position, player.transform.position, Color.red);
-            Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
 
             //List<Vector3> pos = new List<Vector3>();
             //pos.Add(this.transform.position);
@@ -89,7 +88,13 @@ public class example : MonoBehaviour
             //redLine.SetPositions(pos.ToArray());
         }
 
-        Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
+        Vector3 direction = player.transform.position - transform.position;
+        Debug.DrawLine(transform.position, player.transform.position, Color.red);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Debug.Log("Angle:" + angle);
+
+        //Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
         if (AngleBetweenVector2(player.transform.position, this.transform.position) >= 90)
         {
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
