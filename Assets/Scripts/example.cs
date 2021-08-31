@@ -20,6 +20,7 @@ public class example : MonoBehaviour
     public bool inCollider = false;
     public GameObject player;
     public float orbitSpeed = 10.0f;
+    bool[] rotate = new bool[] { false, false };    //0- czy siê obraca, 1- w któr¹ stronê: true- prawo, false- lewo
 
     void Start()
     {
@@ -93,8 +94,40 @@ public class example : MonoBehaviour
 
             if (Vector2.Angle(player.transform.position - transform.position, pointIn - player.transform.position) >= 89)
             {
-                player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+                if (!rotate[0] && player.transform.position.x - transform.position.x > transform.position.x - player.transform.position.x)
+                {
+                    rotate[0] = true;
+                    //rotateAround(Vector3.back);
+                }
+                else if (!rotate[0] && transform.position.x - player.transform.position.x > player.transform.position.x - transform.position.x)
+                {
+                    rotate[0] = true;
+                    rotate[1] = true;
+                    //rotateAround(Vector3.forward);
+                }
+                //rotate[0] = true;
             }
+            if (rotate[0])
+            {
+                //rotateAround(Vector3.back);
+                Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+                rb.velocity = Vector2.zero;
+
+                Vector3 directionTo = transform.position - player.transform.position;
+                if (rotate[1])
+                {
+                    directionTo = Quaternion.Euler(0, 0, 85) * directionTo;
+                    float distanceThisFrame = orbitSpeed * Time.deltaTime;
+                    player.transform.Translate(directionTo.normalized * distanceThisFrame, Space.World);
+                }
+                else if (!rotate[1])
+                {
+                    directionTo = Quaternion.Euler(0, 0, -85) * directionTo;
+                    float distanceThisFrame = orbitSpeed * Time.deltaTime;
+                    player.transform.Translate(directionTo.normalized * distanceThisFrame, Space.World);
+                }
+            }
+            Debug.Log(rotate[0].ToString() + "   " + rotate[1].ToString());
         }
 
         Vector3 direction = player.transform.position - transform.position;
@@ -107,7 +140,7 @@ public class example : MonoBehaviour
         //transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 50);
 
         //Debug.Log(AngleBetweenVector2(player.transform.position, this.transform.position));
-        Debug.Log(Vector2.Angle(player.transform.position - transform.position, pointIn - player.transform.position));
+        //Debug.Log(Vector2.Angle(player.transform.position - transform.position, pointIn - player.transform.position));
     }
 
     private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
@@ -116,5 +149,13 @@ public class example : MonoBehaviour
         //float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
         //return Vector2.Angle(Vector2.right, difference);
         return Vector2.Angle(Vector2.up, difference);
+    }
+
+    void rotateAround(Vector3 rotateVec)
+    {
+        player.transform.RotateAround(transform.position, rotateVec, orbitSpeed * Time.deltaTime);
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        //player.transform.rotation = Quaternion.Euler(0f, 0f, 500f * Time.deltaTime);
     }
 }
