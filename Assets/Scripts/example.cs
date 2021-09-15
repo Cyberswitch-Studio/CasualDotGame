@@ -126,7 +126,7 @@ public class example : MonoBehaviour
                     player.transform.Translate(directionTo.normalized * distanceThisFrame, Space.World);
                 }
             }
-            Debug.Log(rotate[0].ToString() + "   " + rotate[1].ToString());
+            //Debug.Log(rotate[0].ToString() + "   " + rotate[1].ToString());
         }
 
         Vector3 direction = player.transform.position - transform.position;
