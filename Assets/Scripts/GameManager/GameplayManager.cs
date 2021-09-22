@@ -6,8 +6,9 @@ using DG.Tweening;
 public class GameplayManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject MainMenuCanvas, OptionsMenuCanvas, PauseMenuCanvas, GameCanvas;
+    GameObject MainMenuUI, OptionsMenuUI, PauseMenuUI, GameUI;
     public GameObject mainCamera;
+    public GameObject Player;
 
     public enum GameState
     {
@@ -21,13 +22,16 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        MainMenuCanvas.transform.DOScale(2, 1);
-        mainCamera.transform.DOLocalMoveY(5, 5);
+        //MainMenuCanvas.transform.DOScale(2, 1);
+        //mainCamera.transform.DOLocalMoveY(5, 5);
     }
 
     void Update()
     {
-
+        if (currentState == GameState.Game)
+        {
+            
+        }
     }
 
     IEnumerator MainMenuState()

@@ -44,7 +44,6 @@ public class example : MonoBehaviour
     {
         float x;
         float y;
-        float z;
 
         float angle = 20f;
 
